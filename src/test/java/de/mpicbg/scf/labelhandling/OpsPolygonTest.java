@@ -63,9 +63,14 @@ public class OpsPolygonTest {
 
         // analyse polygon
         RealLocalizable point2 = ops.geom().centroid(Views.iterable(roi));
-        System.out.println("centroid region: " + point2);
+        System.out.println("centroid region:  " + point2);
         RealLocalizable point = ops.geom().centroid(polygon);
-        System.out.println("centroid of polygon: " + point);
+        System.out.println("centroid polygon: " + point);
+
+        DoubleType size2 = ops.geom().size(Views.iterable(roi));
+        System.out.println("size region:  " + size2);
+        DoubleType size = ops.geom().size(polygon);
+        System.out.println("size polygon: " + size);
 
     }
 

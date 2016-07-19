@@ -6,6 +6,7 @@ import net.imagej.ops.OpService;
 import net.imglib2.Cursor;
 import net.imglib2.Dimensions;
 import net.imglib2.RandomAccessibleInterval;
+import net.imglib2.RealLocalizable;
 import net.imglib2.img.Img;
 import net.imglib2.img.array.ArrayImgs;
 import net.imglib2.roi.geometric.Polygon;
@@ -41,12 +42,12 @@ public class OpsPolygonTest {
         // 20x20 in size
         // circle positioned at 10x10
         // circle radius 4
-        Img<FloatType> testImage = getNDimensionalTestImage(2, 20, 10, 4);
-        //Img<FloatType> testImage = getNDimensionalTestImage(2, 100, 25, 10);
+        //Img<FloatType> testImage = getNDimensionalTestImage(2, 20, 10, 4);
+        Img<FloatType> testImage = getNDimensionalTestImage(2, 200, 100, 10);
 
 
         // print test image on console
-        System.out.println(ops.image().ascii(testImage));
+        //System.out.println(ops.image().ascii(testImage));
 
         // create a labeling of it
         ImgLabeling<Integer, IntType> labeling = getIntIntImgLabellingFromLabelMapImg(testImage);
@@ -58,11 +59,13 @@ public class OpsPolygonTest {
         RandomAccessibleInterval<BoolType> roi = labelMap.get(0);
 
         // get its polygon
-        Polygon polygon = ops.geom().contour(roi, true, false);
+        Polygon polygon = ops.geom().contour(roi, true, true);
 
         // analyse polygon
-        DoubleType measure = ops.geom().boundaryPixelCountConvexHull(polygon);
-        System.out.println("perimeter: " + measure.get());
+        RealLocalizable point2 = ops.geom().centroid(Views.iterable(roi));
+        System.out.println("centroid region: " + point2);
+        RealLocalizable point = ops.geom().centroid(polygon);
+        System.out.println("centroid of polygon: " + point);
 
     }
 

@@ -42,11 +42,12 @@ public class OpsBoundingIntervalsTest {
         RealLocalizable[] positions = new RealLocalizable[mesh.getVertices().size()];
         mesh.getVertices().toArray(positions);
 
-        System.out.println("Minimum x: " + getMinimum(positions, 0));
-        System.out.println("Maximum x: " + getMaximum(positions, 0));
+        System.out.println("Mesh Minimum x: " + getMinimum(positions, 0));
+        System.out.println("Mesh Maximum x: " + getMaximum(positions, 0));
 
-        System.out.println("Count: " + count);
-        System.out.println("Size: " + ops.geom().size(mesh));
+        System.out.println("Mesh Count: " + count);
+        System.out.println("Mesh Size: " + ops.geom().size(mesh));
+        System.out.println("Mesh Centroid: " + ops.geom().centroid(mesh));
     }
 
     @Test
@@ -70,11 +71,12 @@ public class OpsBoundingIntervalsTest {
 
         polygon.getVertices().toArray(positions);
 
-        System.out.println("Minimum x: " + getMinimum(positions, 0));
-        System.out.println("Maximum x: " + getMaximum(positions, 0));
+        System.out.println("Polygon Minimum x: " + getMinimum(positions, 0));
+        System.out.println("Polygon Maximum x: " + getMaximum(positions, 0));
 
-        System.out.println("Count: " + count);
-        System.out.println("Size: " + ops.geom().size(polygon));
+        System.out.println("Polygon Count: " + count);
+        System.out.println("Polygon Size: " + ops.geom().size(polygon));
+        System.out.println("Polygon Centroid: " + ops.geom().centroid(polygon));
     }
 
 

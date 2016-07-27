@@ -45,7 +45,7 @@ public class OpsPolygonTest {
         // 20x20 in size
         // circle positioned at 10x10
         // circle radius 4
-        Img<FloatType> testImage = getNDimensionalTestImage(2, 200, 60, 4);
+        Img<FloatType> testImage = Utilitities.getNDimensionalTestImage(2, 200, 60, 4);
         //Img<FloatType> testImage = getNDimensionalTestImage(2, 200, 100, 10);
 
 
@@ -53,10 +53,10 @@ public class OpsPolygonTest {
         //System.out.println(ops.image().ascii(testImage));
 
         // create a labeling of it
-        ImgLabeling<Integer, IntType> labeling = getIntIntImgLabellingFromLabelMapImg(testImage);
+        ImgLabeling<Integer, IntType> labeling = Utilitities.getIntIntImgLabellingFromLabelMapImg(testImage);
 
         // create a ROI list (with one item) containing the circle region
-        ArrayList<RandomAccessibleInterval<BoolType>> labelMap = getRegionsFromImgLabeling(labeling);
+        ArrayList<RandomAccessibleInterval<BoolType>> labelMap = Utilitities.getRegionsFromImgLabeling(labeling);
 
         // get the ROI
         RandomAccessibleInterval<BoolType> roi = labelMap.get(0);
@@ -88,7 +88,7 @@ public class OpsPolygonTest {
         // 20x20 in size
         // circle positioned at 10x10
         // circle radius 4
-        Img<FloatType> testImage = getNDimensionalTestImage(2, 200, 60, 4);
+        Img<FloatType> testImage = Utilitities.getNDimensionalTestImage(2, 200, 60, 4);
         //Img<FloatType> testImage = getNDimensionalTestImage(2, 200, 100, 10);
 
 
@@ -96,10 +96,10 @@ public class OpsPolygonTest {
         //System.out.println(ops.image().ascii(testImage));
 
         // create a labeling of it
-        ImgLabeling<Integer, IntType> labeling = getIntIntImgLabellingFromLabelMapImg(testImage);
+        ImgLabeling<Integer, IntType> labeling = Utilitities.getIntIntImgLabellingFromLabelMapImg(testImage);
 
         // create a ROI list (with one item) containing the circle region
-        ArrayList<RandomAccessibleInterval<BoolType>> labelMap = getRegionsFromImgLabeling(labeling);
+        ArrayList<RandomAccessibleInterval<BoolType>> labelMap = Utilitities.getRegionsFromImgLabeling(labeling);
 
         // get the ROI
         RandomAccessibleInterval<BoolType> roi = labelMap.get(0);
@@ -123,75 +123,5 @@ public class OpsPolygonTest {
     }
 
 
-    public static  <T extends RealType<T>>  ImgLabeling<Integer, IntType> getIntIntImgLabellingFromLabelMapImg(Img<T> labelMap) {
-        final Dimensions dims = labelMap;
-        final IntType t = new IntType();
-        final RandomAccessibleInterval<IntType> img = Util.getArrayOrCellImgFactory(dims, t).create(dims, t);
-        final ImgLabeling<Integer, IntType> labeling = new ImgLabeling<Integer, IntType>(img);
-
-        final Cursor<LabelingType<Integer>> labelCursor = Views.flatIterable(labeling).cursor();
-
-        for (final T input : Views.flatIterable(labelMap)) {
-            final LabelingType<Integer> element = labelCursor.next();
-            if (input.getRealFloat() != 0)
-            {
-                element.add((int) input.getRealFloat());
-            }
-        }
-        return labeling;
-    }
-
-    public static ArrayList<RandomAccessibleInterval<BoolType>> getRegionsFromImgLabeling(ImgLabeling<Integer, IntType> labeling) {
-        LabelRegions<Integer> labelRegions = new LabelRegions<Integer>(labeling);
-
-        ArrayList<RandomAccessibleInterval<BoolType>> regions;
-
-        regions = new ArrayList<RandomAccessibleInterval<BoolType>> ();
-
-        if (regions != null) {
-            Object[] regionsArr = labelRegions.getExistingLabels().toArray();
-            for (int i = 0; i < labelRegions.getExistingLabels().size(); i++)
-            {
-                LabelRegion<Integer> lr = labelRegions.getLabelRegion((Integer)regionsArr[i]);
-                regions.add(lr);
-            }
-        }
-        return regions;
-    }
-
-    private Img<FloatType> getNDimensionalTestImage(int dimension, int imageSize, int circleCenter, int radius)
-    {
-        long[] dims = new long[dimension];
-        for (int d = 0; d < dimension; d++) {
-            dims[d] = imageSize;
-        }
-
-        Img<FloatType> testImg = ArrayImgs.floats(dims);
-        Cursor<FloatType> cur = testImg.cursor();
-
-        int center = circleCenter;
-        int radiusSquared = (int)Math.pow(radius, 2);
-
-        while (cur.hasNext())
-        {
-            cur.next();
-
-            long[] position = new long[testImg.numDimensions()];
-
-            cur.localize(position);
-
-            double sum = 0;
-            for (int d = 0; d < dimension; d++)
-            {
-                sum += Math.pow(position[d] - center,2);
-            }
-
-            if (sum < radiusSquared)
-            {
-                cur.get().set(1);
-            }
-        }
-        return testImg;
-    }
 
 }

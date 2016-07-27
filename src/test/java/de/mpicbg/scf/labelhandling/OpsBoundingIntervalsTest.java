@@ -10,6 +10,7 @@ import net.imglib2.RandomAccess;
 import net.imglib2.RealLocalizable;
 import net.imglib2.img.Img;
 import net.imglib2.img.array.ArrayImgs;
+import net.imglib2.roi.Regions;
 import net.imglib2.roi.geometric.Polygon;
 import net.imglib2.type.logic.BitType;
 import net.imglib2.type.logic.BoolType;
@@ -29,9 +30,9 @@ public class OpsBoundingIntervalsTest {
         RandomAccess<BitType> ra = img.randomAccess();
 
         int count = 0;
-        for (int x = 3; x < 7; x++) {
-            for (int y = 3; y < 7; y++) {
-                for (int z = 3; z < 7; z++) {
+        for (int x = 2; x < 6; x++) {
+            for (int y = 2; y < 6; y++) {
+                for (int z = 2; z < 6; z++) {
                     setPixel(ra, new long[]{x, y, z}, true);
                     count ++;
                 }
@@ -48,6 +49,7 @@ public class OpsBoundingIntervalsTest {
         System.out.println("Mesh Count: " + count);
         System.out.println("Mesh Size: " + ops.geom().size(mesh));
         System.out.println("Mesh Centroid: " + ops.geom().centroid(mesh));
+        System.out.println("Img Centroid: " + ops.geom().centroid(Regions.iterable(img)));
     }
 
     @Test
@@ -59,8 +61,8 @@ public class OpsBoundingIntervalsTest {
         RandomAccess<BitType> ra = img.randomAccess();
 
         int count = 0;
-        for (int x = 3; x < 7; x++) {
-            for (int y = 3; y < 7; y++) {
+        for (int x = 2; x < 6; x++) {
+            for (int y = 2; y < 6; y++) {
                 setPixel(ra, new long[]{x, y}, true);
                 count ++;
             }
@@ -77,6 +79,7 @@ public class OpsBoundingIntervalsTest {
         System.out.println("Polygon Count: " + count);
         System.out.println("Polygon Size: " + ops.geom().size(polygon));
         System.out.println("Polygon Centroid: " + ops.geom().centroid(polygon));
+        System.out.println("Img Centroid: " + ops.geom().centroid(Regions.iterable(img)));
     }
 
 

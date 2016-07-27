@@ -45,7 +45,7 @@ public class CopyTest {
 
             for (int i = 0; i < 1000; i++) {
 
-                Img<FloatType> testImage = Utilitities.getNDimensionalTestImage(3, 200, 100, radius);
+                Img<FloatType> testImage = Utilitities.getNDimensionalTestImage(2, 200, 100, radius);
 
                 // create a labeling of it
                 ImgLabeling<Integer, IntType> labeling = Utilitities.getIntIntImgLabellingFromLabelMapImg(testImage);

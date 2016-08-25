@@ -46,7 +46,7 @@ public class OpsBoundingIntervalsTest {
         System.out.println("Mesh Minimum x: " + getMinimum(positions, 0));
         System.out.println("Mesh Maximum x: " + getMaximum(positions, 0));
 
-        System.out.println("Mesh Count: " + count);
+        System.out.println("Mesh source voxel count: " + count);
         System.out.println("Mesh Size: " + ops.geom().size(mesh));
         System.out.println("Mesh Centroid: " + ops.geom().centroid(mesh));
         System.out.println("Img Centroid: " + ops.geom().centroid(Regions.iterable(img)));
@@ -76,7 +76,7 @@ public class OpsBoundingIntervalsTest {
         System.out.println("Polygon Minimum x: " + getMinimum(positions, 0));
         System.out.println("Polygon Maximum x: " + getMaximum(positions, 0));
 
-        System.out.println("Polygon Count: " + count);
+        System.out.println("Polygon source pixel count: " + count);
         System.out.println("Polygon Size: " + ops.geom().size(polygon));
         System.out.println("Polygon Centroid: " + ops.geom().centroid(polygon));
         System.out.println("Img Centroid: " + ops.geom().centroid(Regions.iterable(img)));

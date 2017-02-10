@@ -2,6 +2,7 @@ package de.mpicbg.scf.labelhandling;
 
 import net.imglib2.Cursor;
 import net.imglib2.Dimensions;
+import net.imglib2.RandomAccess;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.img.Img;
 import net.imglib2.img.array.ArrayImgs;
@@ -9,6 +10,7 @@ import net.imglib2.roi.labeling.ImgLabeling;
 import net.imglib2.roi.labeling.LabelRegion;
 import net.imglib2.roi.labeling.LabelRegions;
 import net.imglib2.roi.labeling.LabelingType;
+import net.imglib2.type.logic.BitType;
 import net.imglib2.type.logic.BoolType;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.integer.IntType;
@@ -93,5 +95,12 @@ public class Utilitities {
             }
         }
         return testImg;
+    }
+
+
+    public static void setPixel(RandomAccess<BitType> ra , long[] position, boolean value)
+    {
+        ra.setPosition(position);
+        ra.get().set(true);
     }
 }

@@ -33,7 +33,7 @@ public class OpsBoundingIntervalsTest {
         for (int x = 2; x < 6; x++) {
             for (int y = 2; y < 6; y++) {
                 for (int z = 2; z < 6; z++) {
-                    setPixel(ra, new long[]{x, y, z}, true);
+                    Utilitities.setPixel(ra, new long[]{x, y, z}, true);
                     count ++;
                 }
             }
@@ -63,7 +63,7 @@ public class OpsBoundingIntervalsTest {
         int count = 0;
         for (int x = 2; x < 6; x++) {
             for (int y = 2; y < 6; y++) {
-                setPixel(ra, new long[]{x, y}, true);
+                Utilitities.setPixel(ra, new long[]{x, y}, true);
                 count ++;
             }
         }
@@ -113,9 +113,4 @@ public class OpsBoundingIntervalsTest {
 
 
 
-    private void setPixel(RandomAccess<BitType> ra , long[] position, boolean value)
-    {
-        ra.setPosition(position);
-        ra.get().set(true);
-    }
 }
